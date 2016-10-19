@@ -1,0 +1,19 @@
+{
+  "name": "seiyuu-birthday-bot",
+  "version": "1.0.0",
+  "description": "Seiyuu Birthday Twitter Bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "seiyuu-birthday-bot"
+  },
+  "author": "ambidere",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.2",
+    "twitter": "^1.4.0"
+  }
+}
