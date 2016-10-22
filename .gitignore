@@ -2,4 +2,4 @@ node_modules/
 config/credentials.*
 npm-debug.log
 .DS_Store
-/*.env
+/*.envsrc/config/
