@@ -4,7 +4,7 @@
   "description": "Seiyuu Birthday Twitter Bot",
   "main": "bot.js",
   "scripts": {
-    "start" : "node src/app"
+    "start": "node src/app"
   },
   "repository": {
     "type": "git",
@@ -13,10 +13,9 @@
   "author": "ambidere",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.1.2",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.6",
-    "twitter": "^1.4.0"
+    "twit": "^2.2.5"
   },
   "engines": {
     "node": "6.5.0"
