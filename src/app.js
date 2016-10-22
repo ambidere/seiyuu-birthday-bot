@@ -5,7 +5,7 @@ var PrintErrorCode = require('./error/errorcode');
 var JSONParser = require('./parser');
 
 //gets twitter app credentials
-var secret = require("../config/credentials");
+var secret = require(__dirname + "/config/credentials");
 var T = new Twitter(secret, { track: '@seiyu_tanjoubi' });
 
 var AppListener = function() {
