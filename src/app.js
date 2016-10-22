@@ -4,7 +4,7 @@ var ReplyToTweet = require('./reply');
 var PrintErrorCode = require('./error/errorcode');
 var JSONParser = require('./parser');
 
-//gets twitter app credentials
+// //gets twitter app credentials
 var secret = require(__dirname + "/config/credentials");
 var T = new Twitter(secret, { track: '@seiyu_tanjoubi' });
 
