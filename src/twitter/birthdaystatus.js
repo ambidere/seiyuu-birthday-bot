@@ -13,6 +13,9 @@ var BirthdayStatus = function(tweet, birthdayData, dateFormat) {
 	this.getDateString = function() {
 		var bData = this.birthdayData;
 		this.birthdayDate = Moment(this.getYear(birthdayData) + '-' + bData.month + '-' + bData.day, 'YYYY-MM-DD');
+		if ( this.noBirthYear) {
+			return this.birthdayDate.format("MMMM DD");
+		}
 		return this.birthdayDate.format(this.dateFormat);
 	}
 
@@ -34,14 +37,14 @@ var BirthdayStatus = function(tweet, birthdayData, dateFormat) {
 			return '';
 		}
 		else {
-			return now.diff( bDate, 'years' ) + " years old";
+			return ". " + now.diff( bDate, 'years' ) + " years old";
 		}
 	}
 
 	this.getStatus = function() {
 		var username = this.tweet.user.screen_name;
 		var mentionToUser = "@" +  username;
-		return mentionToUser + " " + this.getDateString() + ". " + this.getAgeString();
+		return mentionToUser + " " + this.getDateString() + this.getAgeString();
 	}
 }
 
