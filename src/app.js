@@ -6,7 +6,7 @@ var JSONParser = require('./parser');
 
 //gets twitter app credentials
 var secret = require("../config/credentials");
-var T = new Twitter(secret, { track: '@seiyuu_tanjoubi' });
+var T = new Twitter(secret, { track: '@seiyu_tanjoubi' });
 
 var AppListener = function() {
 	this.onSuccessfulParse = function(data) {
