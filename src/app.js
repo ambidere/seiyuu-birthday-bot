@@ -1,17 +1,28 @@
 //gets Twit package
 var Twitter = require('./twitter');
-var Reply = require('./reply');
+var ReplyToTweet = require('./reply');
 var PrintErrorCode = require('./error/errorcode');
-var DB = require('./db');
+var JSONParser = require('./parser');
 
 //gets twitter app credentials
 var secret = require("../config/credentials");
-var database = new DB( __dirname + '/data/data.json');
-database.read(function(data){
-	var T = new Twitter(secret, { track: '@seiyuu_tanjoubi' }, data);
-	T.onTweet(Reply)
-	 	.onError(PrintErrorCode)
-	 	.startStream();
-	console.log("Bot started...")
-});
+var T = new Twitter(secret, { track: '@seiyuu_tanjoubi' });
+
+var AppListener = function() {
+	this.onSuccessfulParse = function(data) {
+		T.setData(data)
+		 .onTweetReceived(ReplyToTweet)
+		 .onErrorReceived(PrintErrorCode)
+		 .startStream();
+		console.log("Bot started...");
+	}
+}
+
+appListener = new AppListener();
+var parser = new JSONParser( __dirname + '/data/data.json');
+parser.onError(function(error) {
+		console.log(error);
+	  })
+	  .onSuccess(appListener.onSuccessfulParse)
+      .parse();
 
