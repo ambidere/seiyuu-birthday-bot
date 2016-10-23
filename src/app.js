@@ -1,7 +1,6 @@
 //gets Twit package
 var Twitter = require('./twitter');
 var ReplyToTweet = require('./reply');
-var PrintErrorCode = require('./error/errorcode');
 var JSONParser = require('./parser');
 
 // //gets twitter app credentials
@@ -12,15 +11,17 @@ var AppListener = function() {
 	this.onSuccessfulParse = function(data) {
 		T.setData(data)
 		 .onTweetReceived(ReplyToTweet)
-		 .onErrorReceived(PrintErrorCode)
-		 .startStream();
+		 .onErrorReceived( (error, code) => {
+			console.log("Error " + code + ":");
+			console.log(error);
+		}).startStream();
 		console.log("Bot started...");
 	}
 }
 
 appListener = new AppListener();
 var parser = new JSONParser( __dirname + '/data/data.json');
-parser.onError(function(error) {
+parser.onError( error => {
 		console.log(error);
 	  })
 	  .onSuccess(appListener.onSuccessfulParse)
