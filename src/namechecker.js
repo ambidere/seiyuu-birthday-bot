@@ -108,7 +108,7 @@ var NameMatcher = function() {
 					return true;
 				}
 			}
-			else if ( rogiven === undefined ){
+			else if ( value.rogiven === undefined ){
 				return true;
 			}
 		}
