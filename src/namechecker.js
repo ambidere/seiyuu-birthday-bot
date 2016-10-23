@@ -10,11 +10,29 @@ var NameMatcher = function() {
 		return false;
 	};
 
-	this.kanjiNameNoSpaces = function(tweetWords, currentIndex, value) {
-		if ( value.kanjifamily === undefined && value.kanjigiven === undefined ) {
-			return false;
+	this.kanaNameFamilyOnly = function(tweetWords, currentIndex, value) {
+		if ( value.kanafamily != undefined && value.kanagiven === undefined ){
+			var family = tweetWords[currentIndex];
+			if ( family === value.kanagiven )
+			{
+				return true;
+			}
 		}
-		
+		return false;
+	};
+
+	this.roNameFamilyOnly = function(tweetWords, currentIndex, value) {
+		if ( value.rofamily != undefined && value.rogiven === undefined ){
+			var family = tweetWords[currentIndex];
+			if ( family === value.rogiven )
+			{
+				return true;
+			}
+		}
+		return false;
+	};
+
+	this.kanjiNameNoSpaces = function(tweetWords, currentIndex, value) {
 		var word = tweetWords[currentIndex];
 		if ( word.indexOf( value.kanjifamily ) == 0 ) {
 			if ( value.kanjifamily + value.kanjigiven === word ) {
@@ -30,10 +48,6 @@ var NameMatcher = function() {
 	};
 
 	this.kanjiNameWithSpaces = function(tweetWords, currentIndex, value) {
-		if ( value.kanjifamily === undefined && value.kanjigiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex]
 		if ( word === value.kanjifamily ) {
 			var nextIndex = currentIndex + 1;
@@ -53,22 +67,7 @@ var NameMatcher = function() {
 		return false;
 	};
 
-	this.kanaNameFamilyOnly = function(tweetWords, currentIndex, value) {
-		if ( value.kanafamily != undefined && value.kanagiven === undefined ){
-			var family = tweetWords[currentIndex];
-			if ( family === value.kanagiven )
-			{
-				return true;
-			}
-		}
-		return false;
-	};
-
 	this.kanaNameNoSpacesFamilyFirst = function(tweetWords, currentIndex, value) {
-		if ( value.kanafamily === undefined && value.kanagiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex];
 		if ( word.indexOf( value.kanafamily ) == 0 ) {
 			return value.kanafamily + value.kanagiven === word;
@@ -79,10 +78,6 @@ var NameMatcher = function() {
 	};
 
 	this.kanaNameWithSpacesFamilyFirst = function(tweetWords, currentIndex, value) {
-		if ( value.kanafamily === undefined && value.kanagiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex];
 		if ( word === value.kanafamily ) {
 			var nextIndex = currentIndex + 1;
@@ -92,8 +87,10 @@ var NameMatcher = function() {
 				if ( nextWord === kanagiven ) {
 					return true;
 				}
-				else if ( kanagiven === undefined ) {
-					return true;
+				else {
+					if ( kanagiven === undefined ) {
+						return true;
+					}
 				}
 			}
 		}
@@ -101,12 +98,8 @@ var NameMatcher = function() {
 	};
 
 	this.kanaNameNoSpacesGivenFirst = function(tweetWords, currentIndex, value) {
-		if ( value.kanafamily === undefined && value.kanagiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex];
-		if ( value.kanagiven != undefined && word.indexOf( value.kanagiven ) == 0 ) {
+		if ( word.indexOf( value.kanagiven ) == 0 ) {
 			return value.kanagiven + value.kanafamily === word;
 		}
 		else {
@@ -115,10 +108,6 @@ var NameMatcher = function() {
 	};
 
 	this.kanaNameWithSpacesGivenFirst = function(tweetWords, currentIndex, value) {
-		if ( value.kanafamily === undefined && value.kanagiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex];
 		if ( word === value.kanagiven ) {
 			var nextIndex = currentIndex + 1;
@@ -138,48 +127,29 @@ var NameMatcher = function() {
 		return false;
 	};
 
-	this.roNameFamilyOnly = function(tweetWords, currentIndex, value) {
-		if ( value.rofamily != undefined && value.rogiven === undefined ){
-			var family = tweetWords[currentIndex];
-			if ( family === value.rogiven )
-			{
-				return true;
+	this.roNameWithFamilyFirst = function(tweetWords, currentIndex, value) {
+		var word = tweetWords[currentIndex].toLowerCase();
+		if ( word === value.rofamily.toLowerCase() ) {
+			var nextIndex = currentIndex + 1;
+			if ( nextIndex < tweetWords.length ) {
+				var nextWord = tweetWords[nextIndex].toLowerCase();
+				var rogiven = value.rogiven.toLowerCase();
+				if ( nextWord === rogiven ) {
+					return true;
+				}
+				else {
+					if ( rogiven === undefined ) {
+						return true;
+					}
+				}
 			}
 		}
 		return false;
 	};
 
-	this.roNameWithFamilyFirst = function(tweetWords, currentIndex, value) {
-		if ( value.rofamily === undefined && value.rogiven === undefined ) {
-			return false;
-		}
-
- 		var word = tweetWords[currentIndex].toLowerCase();
- 		if ( word === value.rofamily.toLowerCase() ) {
- 			var nextIndex = currentIndex + 1;
- 			if ( nextIndex < tweetWords.length ) {
- 				var nextWord = tweetWords[nextIndex].toLowerCase();
- 				var rogiven = value.rogiven.toLowerCase();
- 				if ( nextWord === rogiven ) {
- 					return true;
- 				}
- 				else {
- 					if ( rogiven === undefined ) {
- 						return true;
- 					}
- 				}
- 			}
- 		}
- 		return false;
- 	};
-
 	this.roNameWithGivenFirst = function(tweetWords, currentIndex, value) {
-		if ( value.rofamily === undefined && value.rogiven === undefined ) {
-			return false;
-		}
-
 		var word = tweetWords[currentIndex].toLowerCase();
-		if ( word === value.rogiven.toLowerCase() ) {
+		if ( value.rogiven != undefined && word === value.rogiven.toLowerCase() ) {
 			var nextIndex = currentIndex + 1;
 			if ( nextIndex < tweetWords.length ) {
 				var nextWord = tweetWords[nextIndex].toLowerCase();
