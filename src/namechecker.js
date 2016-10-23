@@ -54,10 +54,8 @@ var NameMatcher = function() {
 				if ( nextWord === kanagiven ) {
 					return true;
 				}
-				else {
-					if ( kanagiven === undefined ) {
-						return true;
-					}
+				else if ( kanagiven === undefined ) {
+					return true;
 				}
 			}
 		}
@@ -66,7 +64,7 @@ var NameMatcher = function() {
 
 	this.kanaNameNoSpacesGivenFirst = function(tweetWords, currentIndex, value) {
 		var word = tweetWords[currentIndex];
-		if ( word.indexOf( value.kanagiven ) == 0 ) {
+		if ( value.kanagiven != undefined && word.indexOf( value.kanagiven ) == 0 ) {
 			return value.kanagiven + value.kanafamily === word;
 		}
 		else {
@@ -76,7 +74,7 @@ var NameMatcher = function() {
 
 	this.kanaNameWithSpacesGivenFirst = function(tweetWords, currentIndex, value) {
 		var word = tweetWords[currentIndex];
-		if ( word === value.kanagiven ) {
+		if ( value.kanagiven != undefined && word === value.kanagiven ) {
 			var nextIndex = currentIndex + 1;
 			if ( nextIndex < tweetWords.length ) {
 				var nextWord = tweetWords[nextIndex];
@@ -99,16 +97,19 @@ var NameMatcher = function() {
 		if ( word === value.rofamily.toLowerCase() ) {
 			var nextIndex = currentIndex + 1;
 			if ( nextIndex < tweetWords.length ) {
-				var nextWord = tweetWords[nextIndex].toLowerCase();
-				var rogiven = value.rogiven.toLowerCase();
-				if ( nextWord === rogiven ) {
-					return true;
-				}
-				else {
-					if ( rogiven === undefined ) {
+				if ( rogiven != undefined ) {
+					var nextWord = tweetWords[nextIndex].toLowerCase();
+					var rogiven = value.rogiven.toLowerCase();
+					if ( nextWord === rogiven ) {
 						return true;
 					}
 				}
+				else {
+					return true;
+				}
+			}
+			else if ( rogiven === undefined ){
+				return true;
 			}
 		}
 		return false;
