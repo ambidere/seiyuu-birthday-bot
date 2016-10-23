@@ -1,5 +1,6 @@
-var PrintErrorCode = function(data) {
-	console.log("Error code - " + data.errorCode)
+var PrintErrorCode = function(error, code) {
+	console.log("Error data:");
+	console.log(error);
 }
 
 module.exports = PrintErrorCode;
