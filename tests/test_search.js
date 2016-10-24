@@ -7,10 +7,7 @@ var assert = chai.assert;
 
 
 describe('SearchFromData', () => {
-	var searcher;
-	before( () => {
-		searcher = new SearchFromData(MockData);
-	});
+	var searcher = new SearchFromData(MockData);
 
 	it( 'initializes', () => {
 		assert.isNotNull(new SearchFromData(MockData));
@@ -54,7 +51,7 @@ describe('SearchFromData', () => {
 	});
 
 	it( 'romaji tweet only contains proper entry, given name first with multiple spaces', () => {
-		var mentionTweet = "          Risa    Taneda ";
+		var mentionTweet = "         Risa    Taneda ";
 		var returnedValue = searcher.search(mentionTweet);
 		assert.isNotNull(returnedValue);
 		assert.strictEqual(returnedValue.year,1988);
@@ -96,5 +93,14 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.year,1988);
 		assert.strictEqual(returnedValue.month,7);
 		assert.strictEqual(returnedValue.day,12);
+	});
+
+	it( 'tweet has proper entry family name only', () => {
+		var mentionTweet = "愛美";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1991);
+		assert.strictEqual(returnedValue.month,12);
+		assert.strictEqual(returnedValue.day,25);
 	});
 });
