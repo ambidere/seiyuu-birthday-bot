@@ -86,6 +86,33 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.day,12);
 	});
 
+	it( 'kana tweet only contains proper entry, family name first no spaces', () => {
+		var mentionTweet = "たねだりさ";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1988);
+		assert.strictEqual(returnedValue.month,7);
+		assert.strictEqual(returnedValue.day,12);
+	});
+
+	it( 'kana tweet only contains proper entry, family name first with spaces in middle', () => {;
+		var mentionTweet = "たねだ　　　　　りさ";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1988);
+		assert.strictEqual(returnedValue.month,7);
+		assert.strictEqual(returnedValue.day,12);
+	});
+
+	it( 'kana tweet only contains proper entry, family name first with multiple spaces before and after', () => {
+		var mentionTweet = "  たねだりさ      ";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1988);
+		assert.strictEqual(returnedValue.month,7);
+		assert.strictEqual(returnedValue.day,12);
+	});
+
 	it( 'tweet has two proper entries, returns first entry', () => {
 		var mentionTweet = "種田梨沙 愛美";
 		var returnedValue = searcher.search(mentionTweet);
