@@ -1,4 +1,4 @@
-var SearchFromData = require(__dirname + '/search');
+var SearchFromData = require(__dirname + '/../src/search');
 var MockData = require(__dirname + '/data/data');
 
 //chai 
@@ -122,12 +122,27 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.day,12);
 	});
 
-	it( 'tweet has proper entry family name only', () => {
+	it( 'tweet has proper entry family name only, no spaces', () => {
 		var mentionTweet = "愛美";
 		var returnedValue = searcher.search(mentionTweet);
 		assert.isNotNull(returnedValue);
 		assert.strictEqual(returnedValue.year,1991);
 		assert.strictEqual(returnedValue.month,12);
 		assert.strictEqual(returnedValue.day,25);
+	});
+
+	it( 'tweet has proper entry family name only, with spaces', () => {
+		var mentionTweet = "愛美      ";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1991);
+		assert.strictEqual(returnedValue.month,12);
+		assert.strictEqual(returnedValue.day,25);
+	});
+
+	it( 'tweet has proper entry family name only, with spaces between kanji', () => {
+		var mentionTweet = "愛   美      ";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNull(returnedValue);
 	});
 });

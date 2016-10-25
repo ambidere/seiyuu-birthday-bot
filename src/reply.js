@@ -6,11 +6,12 @@ var ReplyToTweet = function(tweet) {
 	var text = tweet.text;
 	var twit = this.twitter;
 
-	var search = new SearchFromTweet(tweet, this.data);
-	search.onItemFound( function( birthdayData ) {
+	var search = new SearchFromData(this.data);
+	birthdayData = search.search(text);
+	if( birthdayData ) {
 		var birthdayStatus = new BirthdayStatus(tweet, birthdayData, 'MMMM DD, YYYY');
 		twit.doTweet( birthdayStatus.getTweet() );
-	}).getData();
+	}
 };
 
 module.exports = ReplyToTweet;

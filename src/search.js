@@ -1,46 +1,95 @@
-var NameMatcher = require('./namechecker');
+var _ = require('lodash');
 
-var SearchFromTweet = function(tweet, data) {
-	this.tweet = tweet;
+var SearchFromData = function(data) {
 	this.data = data;
-}
 
-SearchFromTweet.prototype.onItemFound = function( onItemFound ) {
-	this.onItemFound = onItemFound;
-	if ( typeof onItemFound === 'undefined' ) {
-		this.onItemFound = function(value) {
-			console.log('Result from tweet: ' + value);
+	this.search = function(text) {
+		var preProcessed = this.preprocessText( text );
+		if ( _.isEmpty(preProcessed) ) {
+			return null;
 		}
-	}
-	return this;
-}
 
-SearchFromTweet.prototype.getData = function() {
-	var sTweet = this.tweet;
-	var preProcessedTexts = sTweet.text.trim().replace(/\s\s+/g, ' ').split(' ');
-	var sData = this.data;
-	var nameMatcher = new NameMatcher();
-
-	sData.forEach(function(value) {
-		var resultIndex = -1;
-		for (var index = 0; index < preProcessedTexts.length; index++) {
-			var tweetWord = preProcessedTexts[index].toLowerCase();
-			if ( tweetWord.indexOf( '@' ) != 0) {
-				resultIndex = nameMatcher.getMatchedIndex(preProcessedTexts, index, value);
-				if ( resultIndex > -1 )
-				{
-					break;
+		var foundValue = null;
+		_.forEach( this.data, (dValue, dIndex) => {
+			_.forEach( this.getCombinations(dValue), (combination) => {
+				if ( this.checkIfCombinationsMatchesWithText(combination, preProcessed) ) {
+					foundValue = dValue;
+					return false;
 				}
+			});
+			if ( foundValue !== null ) {
+				return false;
 			}
+		});
+        return foundValue;
+	}
+
+	this.checkIfCombinationsMatchesWithText = function(pattern, text) {
+		var rightMostIndexes = this.preProcessForBadCharacterShift(pattern);
+		var patternLength = pattern.length;
+		var textLength = text.length;
+		var alignedAt = 0;
+
+		for ( var indexInPattern = 0; indexInPattern <= textLength - patternLength; indexInPattern += alignedAt ) {
+            alignedAt = 0;
+            for ( var indexInText = patternLength - 1; indexInText >= 0; indexInText-- ) {
+                var textChar = text.charAt( indexInPattern + indexInText );
+                if ( pattern.charAt(indexInText) != textChar ) {
+                    alignedAt = Math.max(1, indexInText - rightMostIndexes.get( textChar ) );
+                    break;
+                }
+            }
+
+            if (alignedAt == 0) {
+            	return true;
+            }
+        }
+        return false;
+	}
+
+	this.preProcessForBadCharacterShift = function(pattern) {
+		var map = new Map();
+		for (var indexInPattern = 0; indexInPattern < pattern.length; indexInPattern++) {
+			map.set(pattern.charAt(indexInPattern), indexInPattern);
+		}
+		return map;
+	}
+
+	this.getCombinations = function(value) {
+		toLower = function(value) {
+			return _.toLower(value);
+		}
+		combinations = [];
+		if (value.kanjigiven === undefined && 
+			value.kanagiven === undefined && 
+			value.rogiven === undefined ) {
+			combinations = [
+				value.kanjifamily,
+				value.kanafamily,
+				value.rofamily
+			];
+		}
+		else {
+			combinations = [
+				value.kanjifamily + value.kanjigiven,
+				value.kanjigiven + value.kanjifamily,
+				value.kanjifamily + ' ' + value.kanjigiven,
+				value.kanjigiven + ' ' + value.kanjifamily,
+				value.kanafamily + value.kanagiven,
+				value.kanagiven + value.kanafamily,
+				value.kanafamily + ' ' + value.kanagiven,
+				value.kanagiven + ' ' + value.kanafamily,
+				value.rofamily +　' ' + value.rogiven,
+				value.rogiven + ' ' + value.rofamily
+			];
 		}
 
-		if ( resultIndex > -1 ) {
-			console.log("Item found.");
-			this.onItemFound( value );
-			return;
-		}
-	}.bind( this ));
+		return _.map( combinations, toLower );
+	}
+
+	this.preprocessText = function(text) {
+		return _.lowerCase(text.trim().replace(/\s\s+/g, ' '));
+	}
 };
 
-
-module.exports = SearchFromTweet;
+module.exports = SearchFromData;
