@@ -9,19 +9,18 @@ var SearchFromData = function(data) {
 			return null;
 		}
 
-		var foundValue = null;
+		var matches = [];
 		_.forEach( this.data, (dValue, dIndex) => {
 			_.forEach( this.getCombinations(dValue), (combination) => {
 				if ( this.checkIfCombinationsMatchesWithText(combination, preProcessed) ) {
-					foundValue = dValue;
-					return false;
+					matches.push( dIndex );
 				}
 			});
-			if ( foundValue !== null ) {
-				return false;
-			}
 		});
-        return foundValue;
+		if ( matches.length > 0 ) {
+			return this.data[ Math.min.apply( null, matches ) ];
+		}
+        return null;
 	}
 
 	this.checkIfCombinationsMatchesWithText = function(pattern, text) {
@@ -29,13 +28,19 @@ var SearchFromData = function(data) {
 		var patternLength = pattern.length;
 		var textLength = text.length;
 		var alignedAt = 0;
+		var matches = [];
 
 		for ( var indexInPattern = 0; indexInPattern <= textLength - patternLength; indexInPattern += alignedAt ) {
             alignedAt = 0;
             for ( var indexInText = patternLength - 1; indexInText >= 0; indexInText-- ) {
-                var textChar = text.charAt( indexInPattern + indexInText );
-                if ( pattern.charAt(indexInText) != textChar ) {
-                    alignedAt = Math.max(1, indexInText - rightMostIndexes.get( textChar ) );
+                var textChar = text.charCodeAt( indexInPattern + indexInText );
+                var possibleShift = rightMostIndexes.get( textChar );
+                if ( isNaN( possibleShift ) ) {
+                	possibleShift = -1;
+                }
+
+                if ( pattern.charCodeAt(indexInText) != textChar ) {
+                    alignedAt = Math.max(1, indexInText -  possibleShift);
                     break;
                 }
             }
@@ -50,7 +55,7 @@ var SearchFromData = function(data) {
 	this.preProcessForBadCharacterShift = function(pattern) {
 		var map = new Map();
 		for (var indexInPattern = 0; indexInPattern < pattern.length; indexInPattern++) {
-			map.set(pattern.charAt(indexInPattern), indexInPattern);
+			map.set(pattern.charCodeAt(indexInPattern), indexInPattern);
 		}
 		return map;
 	}
@@ -88,19 +93,7 @@ var SearchFromData = function(data) {
 	}
 
 	this.preprocessText = function(text) {
-		// var newText = text.replace(/\b@\w+/, '');
-		// console.log(newText)
-		var newText = '';
-		//THIS IS A WORKAROUND FIND SOLUTION WHEN THERE IS TIME
-		var split = text.trim().replace(/\s\s+/g, ' ').toLowerCase().split(' ');
-		console.log(split)
-		for (var i = 0; i < split.length; i++) {
-			if (split[i].indexOf('@') === -1) {
-				newText += split[i] + ' ';
-			}
-		};
-		return newText;
-		// return _.lowerCase(newText.trim().replace(/\s\s+/g, ' '));
+		return text.trim().replace(/\s\s+/g, ' ').toLowerCase();
 	}
 };
 

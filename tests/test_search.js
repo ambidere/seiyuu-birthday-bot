@@ -113,13 +113,13 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.day,12);
 	});
 
-	it( 'tweet has two proper entries, returns first entry', () => {
+	it( 'tweet has two proper entries, returns alphabetically first entry', () => {
 		var mentionTweet = "種田梨沙 愛美";
 		var returnedValue = searcher.search(mentionTweet);
 		assert.isNotNull(returnedValue);
-		assert.strictEqual(returnedValue.year,1988);
-		assert.strictEqual(returnedValue.month,7);
-		assert.strictEqual(returnedValue.day,12);
+		assert.strictEqual(returnedValue.year,1991);
+		assert.strictEqual(returnedValue.month,12);
+		assert.strictEqual(returnedValue.day,25);
 	});
 
 	it( 'tweet has proper entry family name only, no spaces', () => {
