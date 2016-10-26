@@ -1,4 +1,4 @@
-var SearchFromTweet = require('./search');
+var SearchFromData = require('./search');
 var BirthdayStatus = require('./twitter/birthdaystatus');
 
 var ReplyToTweet = function(tweet) {
@@ -7,7 +7,8 @@ var ReplyToTweet = function(tweet) {
 	var twit = this.twitter;
 
 	var search = new SearchFromData(this.data);
-	birthdayData = search.search(text);
+	var birthdayData = search.search(text);
+	console.log(birthdayData);
 	if( birthdayData ) {
 		var birthdayStatus = new BirthdayStatus(tweet, birthdayData, 'MMMM DD, YYYY');
 		twit.doTweet( birthdayStatus.getTweet() );

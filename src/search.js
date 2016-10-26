@@ -88,7 +88,19 @@ var SearchFromData = function(data) {
 	}
 
 	this.preprocessText = function(text) {
-		return _.lowerCase(text.trim().replace(/\s\s+/g, ' '));
+		// var newText = text.replace(/\b@\w+/, '');
+		// console.log(newText)
+		var newText = '';
+		//THIS IS A WORKAROUND FIND SOLUTION WHEN THERE IS TIME
+		var split = text.trim().replace(/\s\s+/g, ' ').toLowerCase().split(' ');
+		console.log(split)
+		for (var i = 0; i < split.length; i++) {
+			if (split[i].indexOf('@') === -1) {
+				newText += split[i] + ' ';
+			}
+		};
+		return newText;
+		// return _.lowerCase(newText.trim().replace(/\s\s+/g, ' '));
 	}
 };
 
