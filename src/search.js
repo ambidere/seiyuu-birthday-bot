@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var TextSearchAlgorithm = require( __dirname + '/algorithm/textsearch');
 
 var SearchFromData = function(data) {
 	this.data = data;
@@ -10,9 +11,10 @@ var SearchFromData = function(data) {
 		}
 
 		var matches = [];
+		var algorithm = new TextSearchAlgorithm();
 		_.forEach( this.data, (dValue, dIndex) => {
 			_.forEach( this.getCombinations(dValue), (combination) => {
-				if ( this.checkIfCombinationsMatchesWithText(combination, preProcessed) ) {
+				if ( algorithm.checkIfCombinationsMatchesWithText(combination, preProcessed) ) {
 					matches.push( dIndex );
 				}
 			});
@@ -21,43 +23,6 @@ var SearchFromData = function(data) {
 			return this.data[ Math.min.apply( null, matches ) ];
 		}
         return null;
-	}
-
-	this.checkIfCombinationsMatchesWithText = function(pattern, text) {
-		var rightMostIndexes = this.preProcessForBadCharacterShift(pattern);
-		var patternLength = pattern.length;
-		var textLength = text.length;
-		var alignedAt = 0;
-		var matches = [];
-
-		for ( var indexInPattern = 0; indexInPattern <= textLength - patternLength; indexInPattern += alignedAt ) {
-            alignedAt = 0;
-            for ( var indexInText = patternLength - 1; indexInText >= 0; indexInText-- ) {
-                var textChar = text.charCodeAt( indexInPattern + indexInText );
-                var possibleShift = rightMostIndexes.get( textChar );
-                if ( isNaN( possibleShift ) ) {
-                	possibleShift = -1;
-                }
-
-                if ( pattern.charCodeAt(indexInText) != textChar ) {
-                    alignedAt = Math.max(1, indexInText -  possibleShift);
-                    break;
-                }
-            }
-
-            if (alignedAt == 0) {
-            	return true;
-            }
-        }
-        return false;
-	}
-
-	this.preProcessForBadCharacterShift = function(pattern) {
-		var map = new Map();
-		for (var indexInPattern = 0; indexInPattern < pattern.length; indexInPattern++) {
-			map.set(pattern.charCodeAt(indexInPattern), indexInPattern);
-		}
-		return map;
 	}
 
 	this.getCombinations = function(value) {
@@ -88,7 +53,6 @@ var SearchFromData = function(data) {
 				value.rogiven + ' ' + value.rofamily
 			];
 		}
-
 		return _.map( combinations, toLower );
 	}
 
