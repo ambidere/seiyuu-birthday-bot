@@ -8,7 +8,6 @@ var ReplyToTweet = function(tweet) {
 
 	var search = new SearchFromData(this.data);
 	var birthdayData = search.search(text);
-	console.log(birthdayData);
 	if( birthdayData ) {
 		var birthdayStatus = new BirthdayStatus(tweet, birthdayData, 'MMMM DD, YYYY');
 		twit.doTweet( birthdayStatus.getTweet() );
