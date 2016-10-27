@@ -1,7 +1,5 @@
 var SearchFromData = require(__dirname + '/../src/search');
 var MockData = require(__dirname + '/data/data');
-
-//chai 
 var chai = require('chai');
 var assert = chai.assert;
 
