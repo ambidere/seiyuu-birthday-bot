@@ -12104,6 +12104,7 @@
         "kanagiven": "あい",
         "rofamily": "Kakuma",
         "rogiven": "Ai",
+        "year": 1988,
         "month": 9,
         "day": 9
     },
@@ -20126,6 +20127,16 @@
         "day": 27
     },
     {
+        "kanjifamily": "道井",
+        "kanjigiven": "悠",
+        "kanafamily": "みちい",
+        "kanagiven": "はるか",
+        "rofamily": "Michii",
+        "rogiven": "Haruka",
+        "month": 10,
+        "day": 3
+    },
+    {
         "kanjifamily": "道添",
         "kanjigiven": "愛美",
         "kanafamily": "みちぞえ",
@@ -23904,6 +23915,16 @@
         "day": 2
     },
     {
+        "kanjifamily": "中島",
+        "kanjigiven": "唯",
+        "kanafamily": "なかじま",
+        "kanagiven": "ゆい",
+        "rofamily": "Nakajima",
+        "rogiven": "Yui",
+        "month": 10,
+        "day": 11
+    },
+    {
         "kanjifamily": "中隈",
         "kanjigiven": "志保",
         "kanafamily": "なかくま",
@@ -24246,6 +24267,16 @@
         "year": 1983,
         "month": 2,
         "day": 1
+    },
+    {
+        "kanjifamily": "中村",
+        "kanjigiven": "桜",
+        "kanafamily": "なかむら",
+        "kanagiven": "さくら",
+        "rofamily": "Nakamura",
+        "rogiven": "Sakura",
+        "month": 11,
+        "day": 25
     },
     {
         "kanjifamily": "中根",
@@ -28338,6 +28369,7 @@
         "kanagiven": "さおり",
         "rofamily": "Oonishi",
         "rogiven": "Saori",
+        "year": 1992,
         "month": 8,
         "day": 6
     },
@@ -33220,6 +33252,16 @@
         "day": 18
     },
     {
+        "kanjifamily": "篠田",
+        "kanjigiven": "みなみ",
+        "kanafamily": "しのだ",
+        "kanagiven": "みなみ",
+        "rofamily": "Shinoda",
+        "rogiven": "Minami",
+        "month": 6,
+        "day": 3
+    },
+    {
         "kanjifamily": "篠原",
         "kanjigiven": "あけみ",
         "kanafamily": "しのはら",
@@ -35536,6 +35578,17 @@
         "rogiven": "Naomi",
         "month": 10,
         "day": 8
+    },
+    {
+        "kanjifamily": "高田",
+        "kanjigiven": "憂希",
+        "kanafamily": "たかだ",
+        "kanagiven": "ゆうき",
+        "rofamily": "Takada",
+        "rogiven": "Yuuki",
+        "year": 1993,
+        "month": 3,
+        "day": 16
     },
     {
         "kanjifamily": "高垣",
