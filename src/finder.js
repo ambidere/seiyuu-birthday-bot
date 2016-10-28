@@ -8,7 +8,6 @@ var BirthdayFinder = function(data) {
 
 BirthdayFinder.prototype.findBirthdaysOnCurrentDate = function() {
 	var now = Moment().tz('Asia/Tokyo');
-	console.log(this.data)
 	var filteredByMonth = _.filter( this.data, { "month" :  now.month() + 1 } );
 	var filteredByDay = _.filter( filteredByMonth, { "day" : now.date() } );
 	return filteredByDay;
