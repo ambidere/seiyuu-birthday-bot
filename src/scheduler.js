@@ -7,7 +7,7 @@ var GreetTweet = require(__dirname + '/twitter/greettweet');
 
 var TweetScheduler = function(twitter, data) {
 	this.schedulerInterval = CRONParser.parseExpression('0 0 0 * * *', {
-		currentDate: Moment().format('YYYY-MM-DD h:m:s'),
+		currentDate: Moment().format('YYYY-MM-DD hh:m:s'),
   		tz: 'Asia/Tokyo'
 	});
 	this.twitter = twitter;
