@@ -15,7 +15,13 @@ GreetTweet.prototype.getName = function() {
 		return bData.kanjifamily + bData.kanjigiven;
 	}
 
-GreetTweet.prototype.getHashtag = function(name, birthday='', year='') {
+GreetTweet.prototype.getHashtag = function(name, birthday, year='') {
+	if ( typeof(birthday)==='undefined' ) {
+		birthday = '';
+	}
+   	if ( typeof(year)==='undefined' ) {
+   		year = '';
+   	}
 	return "#" + name + birthday + year;
 }
 
