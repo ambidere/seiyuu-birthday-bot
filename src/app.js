@@ -25,7 +25,7 @@ var AppListener = function() {
 
 	this.onSuccessfulParse = function(data) {
 		initiateTwitterStream(data);
-		initiateTwitterScheduler(data);
+		// initiateTwitterScheduler(data);
 		console.log("Bot started...");
 	}
 }
