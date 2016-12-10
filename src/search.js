@@ -6,6 +6,7 @@ var SearchFromData = function(data) {
 
 	this.search = function(text) {
 		var preProcessed = this.preprocessText( text );
+		console.log('search.js: preprocessText -> ' + preProcessed)
 		if ( _.isEmpty(preProcessed) ) {
 			return null;
 		}
@@ -57,7 +58,8 @@ var SearchFromData = function(data) {
 	}
 
 	this.preprocessText = function(text) {
-		return text.trim().replace(/\s\s+/g, ' ').toLowerCase();
+		removedMention = text.replace(/\B@[a-z0-9_-]+/gi, '')
+		return removedMention.trim().replace(/\s\s+/g, ' ').toLowerCase();
 	}
 };
 
