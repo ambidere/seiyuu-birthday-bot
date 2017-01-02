@@ -6,7 +6,7 @@ var BirthdayFinder = require('./finder');
 var GreetTweet = require(__dirname + '/twitter/greettweet');
 
 var TweetScheduler = function(twitter, data) {
-	this.schedulerInterval = CRONParser.parseExpression('* 00 * * *', {
+	this.schedulerInterval = CRONParser.parseExpression('00 00 * * *', {
 		currentDate: Moment().format('YYYY-MM-DD hh:m:s'),
   		tz: 'Asia/Tokyo'
 	});
@@ -17,7 +17,7 @@ var TweetScheduler = function(twitter, data) {
 TweetScheduler.prototype.start = function() {
 	var that = this;
 	var twitterApi = this.twitter;
-	var job = Schedule.scheduleJob(this.schedulerInterval, function() {
+	var job = Schedule.scheduleJob(that.schedulerInterval, function() {
 	  var birthdayFinder = new BirthdayFinder(that.data);
 	  var birthdays = birthdayFinder.findBirthdaysOnCurrentDate();
 	  _.forEach(birthdays, function(value){
