@@ -1210,6 +1210,17 @@
         "day": 30
     },
     {
+        "kanjifamily": "青山",
+        "kanjigiven": "吉能",
+        "kanafamily": "あおやま",
+        "kanagiven": "よしの",
+        "rofamily": "Aoyama",
+        "rogiven": "Yoshino",
+        "year": 1996,
+        "month": 5,
+        "day": 15
+    },
+    {
         "kanjifamily": "荒",
         "kanjigiven": "友美",
         "kanafamily": "あら",
@@ -2743,6 +2754,17 @@
         "year": 1979,
         "month": 1,
         "day": 1
+    },
+    {
+        "kanjifamily": "永野",
+        "kanjigiven": "愛理",
+        "kanafamily": "えいの",
+        "kanagiven": "あいり",
+        "rofamily": "Eino",
+        "rogiven": "Airi",
+        "year": 1993,
+        "month": 1,
+        "day": 19
     },
     {
         "kanjifamily": "えもり",
@@ -10897,6 +10919,17 @@
         "day": 15
     },
     {
+        "kanjifamily": "伊藤",
+        "kanjigiven": "彩沙",
+        "kanafamily": "いとう",
+        "kanagiven": "あやさ",
+        "rofamily": "Ito",
+        "rogiven": "Ayasa",
+        "year": 1996,
+        "month": 8,
+        "day": 17
+    },
+    {
         "kanjifamily": "伊東",
         "kanjigiven": "絵実",
         "kanafamily": "いとう",
@@ -11217,6 +11250,17 @@
         "year": 1978,
         "month": 6,
         "day": 27
+    },
+    {
+        "kanjifamily": "伊藤",
+        "kanjigiven": "彩沙",
+        "kanafamily": "いとう",
+        "kanagiven": "あやさ",
+        "rofamily": "Itou",
+        "rogiven": "Ayasa",
+        "year": 1996,
+        "month": 8,
+        "day": 17
     },
     {
         "kanjifamily": "伊月",
@@ -28971,6 +29015,17 @@
         "day": 7
     },
     {
+        "kanjifamily": "大塚",
+        "kanjigiven": "紗英",
+        "kanafamily": "おおつか",
+        "kanagiven": "さえ",
+        "rofamily": "Ootsuka",
+        "rogiven": "Sae",
+        "year": 1995,
+        "month": 10,
+        "day": 10
+    },
+    {
         "kanjifamily": "大浦",
         "kanjigiven": "冬華",
         "kanafamily": "おおうら",
@@ -29224,6 +29279,17 @@
         "year": 1978,
         "month": 6,
         "day": 20
+    },
+    {
+        "kanjifamily": "大塚",
+        "kanjigiven": "紗英",
+        "kanafamily": "おおつか",
+        "kanagiven": "さえ",
+        "rofamily": "Otsuka",
+        "rogiven": "Sae",
+        "year": 1995,
+        "month": 10,
+        "day": 10
     },
     {
         "kanjifamily": "近江",
@@ -35687,6 +35753,17 @@
         "year": 1966,
         "month": 7,
         "day": 25
+    },
+    {
+        "kanjifamily": "高木",
+        "kanjigiven": "美佑",
+        "kanafamily": "たかぎ",
+        "kanagiven": "みゆ",
+        "rofamily": "Takagi",
+        "rogiven": "Miyu",
+        "year": 1996,
+        "month": 9,
+        "day": 8
     },
     {
         "kanjifamily": "高口",
@@ -42222,6 +42299,7 @@
         "kanagiven": "ななみ",
         "rofamily": "Yamashita",
         "rogiven": "Nanami",
+        "year": 1995,
         "month": 7,
         "day": 19
     },
@@ -43708,6 +43786,17 @@
         "rogiven": "Maya",
         "month": 2,
         "day": 16
+    },
+    {
+        "kanjifamily": "吉岡",
+        "kanjigiven": "茉祐",
+        "kanafamily": "よしおか",
+        "kanagiven": "まゆ",
+        "rofamily": "Yoshioka",
+        "rogiven": "Mayu",
+        "year": 1995,
+        "month": 11,
+        "day": 7
     },
     {
         "kanjifamily": "吉竹",
