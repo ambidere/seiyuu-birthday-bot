@@ -13,13 +13,28 @@ var SearchFromData = function(data) {
 
 		var matches = [];
 		var algorithm = new TextSearchAlgorithm();
+		//checks match in combinations
 		_.forEach( this.data, (dValue, dIndex) => {
 			_.forEach( this.getCombinations(dValue), (combination) => {
-				if ( algorithm.checkIfCombinationsMatchesWithText(combination, preProcessed) ) {
+				if ( algorithm.checkIfCombinationsMatchesWithText(preProcessed, combination) ) {
 					matches.push( dIndex );
 				}
 			});
 		});
+
+		if ( matches.length == 0 ) {
+			_.forEach( this.data, (dValue, dIndex) => {
+				_.forEach( this.getCombinations(dValue), (combination) => {
+					var splitPreprocessed = preProcessed.split(" ");
+					for (var i = 0; i < splitPreprocessed.length; i++) {
+						if ( algorithm.checkIfCombinationsMatchesWithText(combination, splitPreprocessed[i]) ) {
+							matches.push( dIndex );
+						}
+					};
+				});
+			});
+		}
+
 		if ( matches.length > 0 ) {
 			return this.data[ Math.min.apply( null, matches ) ];
 		}
