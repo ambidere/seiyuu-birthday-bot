@@ -18,6 +18,7 @@ var SearchFromData = function(data) {
 			_.forEach( this.getCombinations(dValue), (combination) => {
 				if ( algorithm.checkIfCombinationsMatchesWithText(preProcessed, combination) ) {
 					matches.push( dIndex );
+					return false;
 				}
 			});
 		});
@@ -73,8 +74,9 @@ var SearchFromData = function(data) {
 	}
 
 	this.preprocessText = function(text) {
-		removedMention = text.replace(/\B@[a-z0-9_-]+/gi, '')
-		return removedMention.trim().replace(/\s\s+/g, ' ').toLowerCase();
+		removedMention = text.replace(/\B@[a-z0-9_-]+/gi, '');
+		removedSpecial = removedMention.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+		return removedSpecial.trim().replace(/\s\s+/g, ' ').toLowerCase();
 	}
 };
 

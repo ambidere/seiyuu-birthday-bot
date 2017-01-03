@@ -154,8 +154,26 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.day,12);
 	});
 
+	it( 'period then tweet at user then proper entry', () => {
+		var mentionTweet = ". @seiyu_tanjoubi 種田梨沙";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1988);
+		assert.strictEqual(returnedValue.month,7);
+		assert.strictEqual(returnedValue.day,12);
+	});
+
 	it( 'tweet at user with possible incorrect search then proper entry', () => {
 		var mentionTweet = "@seiyu_tanjoubi Tanaka Minami";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.year,1996);
+		assert.strictEqual(returnedValue.month,1);
+		assert.strictEqual(returnedValue.day,22);
+	});
+
+	it( 'period then tweet at user with possible incorrect search then proper entry', () => {
+		var mentionTweet = ". @seiyu_tanjoubi Tanaka Minami";
 		var returnedValue = searcher.search(mentionTweet);
 		assert.isNotNull(returnedValue);
 		assert.strictEqual(returnedValue.year,1996);
