@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var Moment = require('moment');
 var MomentTz = require('moment-timezone');
 
@@ -6,28 +7,17 @@ var BirthdayStatus = function(tweet, birthdayData, dateFormat) {
 	this.birthdayData = birthdayData;
 	this.dateFormat = dateFormat;
 	this.noBirthYear = false;
-	if ( birthdayData.year === undefined ) {
+	if ( _.startsWith( birthdayData, Moment().year() ) ) {
 		this.noBirthYear = true;
 	}
 
 	this.getDateString = function() {
 		var bData = this.birthdayData;
-		this.birthdayDate = Moment(this.getYear(birthdayData) + '-' + bData.month + '-' + bData.day, 'YYYY-MM-DD');
-		if ( this.noBirthYear) {
+		this.birthdayDate = Moment(birthdayData.birthdate);
+		if ( this.noBirthYear ) {
 			return this.birthdayDate.format("MMMM DD");
 		}
 		return this.birthdayDate.format(this.dateFormat);
-	}
-
-	this.getYear = function(birthdayData) {
-		var year = '';
-		if ( this.noBirthYear) {
-			year = Moment().year();
-		}
-		else {
-			year = birthdayData.year;
-		}
-		return year;
 	}
 
 	this.getAgeString = function () {

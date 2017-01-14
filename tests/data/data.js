@@ -3,9 +3,7 @@ var MockData = [
         "kanjifamily": "愛美",
         "kanafamily": "あいみ",
         "rofamily": "Aimi",
-        "year": 1991,
-        "month": 12,
-        "day": 25
+        "birthdate": '1991-12-25'
     },
     {
         "kanjifamily": "種田",
@@ -14,9 +12,7 @@ var MockData = [
         "kanagiven": "あやこ",
         "rofamily": "Taneda",
         "rogiven": "Ayako",
-        "year": 1964,
-        "month": 12,
-        "day": 19
+        "birthdate": '1964-12-19'
     },
     {
         "kanjifamily": "種田",
@@ -25,17 +21,13 @@ var MockData = [
         "kanagiven": "りさ",
         "rofamily": "Taneda",
         "rogiven": "Risa",
-        "year": 1988,
-        "month": 7,
-        "day": 12
+        "birthdate": '1988-07-12'
     },
     {
         "kanjifamily": "美名",
         "kanafamily": "みな",
         "rofamily": "Mina",
-        "year": 1984,
-        "month": 2,
-        "day": 13
+        "birthdate": '1984-02-13'
     },
     {
         "kanjifamily": "田中",
@@ -44,9 +36,7 @@ var MockData = [
         "kanagiven": "みなみ",
         "rofamily": "Tanaka",
         "rogiven": "Minami",
-        "year": 1996,
-        "month": 1,
-        "day": 22
+        "birthdate": '1996-01-22'
     }
 ];
 
