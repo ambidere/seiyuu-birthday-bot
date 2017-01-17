@@ -7,7 +7,8 @@ var BirthdayStatus = function(tweet, birthdayData, dateFormat) {
 	this.birthdayData = birthdayData;
 	this.dateFormat = dateFormat;
 	this.noBirthYear = false;
-	if ( _.startsWith( birthdayData, Moment().year() ) ) {
+	
+	if ( _.startsWith( birthdayData.birthdate, Moment().year() ) ) {
 		this.noBirthYear = true;
 	}
 
