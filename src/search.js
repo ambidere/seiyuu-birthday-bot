@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var emojiRegex = require('emoji-regex');
 var TextSearchAlgorithm = require( __dirname + '/algorithm/textsearch');
 
 var SearchFromData = function(data) {
@@ -13,28 +14,19 @@ var SearchFromData = function(data) {
 
 		var matches = [];
 		var algorithm = new TextSearchAlgorithm();
-		//checks match in combinations
-		_.forEach( this.data, (dValue, dIndex) => {
-			_.forEach( this.getCombinations(dValue), (combination) => {
-				if ( algorithm.checkIfCombinationsMatchesWithText(preProcessed, combination) ) {
-					matches.push( dIndex );
-					return false;
-				}
-			});
-		});
 
-		if ( matches.length == 0 ) {
-			_.forEach( this.data, (dValue, dIndex) => {
-				_.forEach( this.getCombinations(dValue), (combination) => {
-					var splitPreprocessed = preProcessed.split(" ");
-					for (var i = 0; i < splitPreprocessed.length; i++) {
-						if ( algorithm.checkIfCombinationsMatchesWithText(combination, splitPreprocessed[i]) ) {
-							matches.push( dIndex );
-						}
-					};
-				});
-			});
-		}
+		_.forEach( this.data, (dValue, dIndex) => {
+			englishNameSplit = dValue.englishNames.toLowerCase().split(',');
+			japaneseNameSplit = dValue.japaneseNames.toLowerCase().split(',');
+
+			if (_.includes(englishNameSplit[0], preProcessed) || _.includes(englishNameSplit[1], preProcessed)) {
+				matches.push( dIndex );
+			}
+			else if (_.includes(japaneseNameSplit[0], preProcessed) || _.includes(japaneseNameSplit[1], preProcessed)) {
+				matches.push( dIndex );
+			}
+			
+		});
 
 		if ( matches.length > 0 ) {
 			return this.data[ Math.min.apply( null, matches ) ];
@@ -42,41 +34,11 @@ var SearchFromData = function(data) {
         return null;
 	}
 
-	this.getCombinations = function(value) {
-		toLower = function(value) {
-			return _.toLower(value);
-		}
-		combinations = [];
-		if (value.kanjigiven === undefined && 
-			value.kanagiven === undefined && 
-			value.rogiven === undefined ) {
-			combinations = [
-				value.kanjifamily,
-				value.kanafamily,
-				value.rofamily
-			];
-		}
-		else {
-			combinations = [
-				value.kanjifamily + value.kanjigiven,
-				value.kanjigiven + value.kanjifamily,
-				value.kanjifamily + ' ' + value.kanjigiven,
-				value.kanjigiven + ' ' + value.kanjifamily,
-				value.kanafamily + value.kanagiven,
-				value.kanagiven + value.kanafamily,
-				value.kanafamily + ' ' + value.kanagiven,
-				value.kanagiven + ' ' + value.kanafamily,
-				value.rofamily +　' ' + value.rogiven,
-				value.rogiven + ' ' + value.rofamily
-			];
-		}
-		return _.map( combinations, toLower );
-	}
-
 	this.preprocessText = function(text) {
 		removedMention = text.replace(/\B@[a-z0-9_-]+/gi, '');
 		removedSpecial = removedMention.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-		return removedSpecial.trim().replace(/\s\s+/g, ' ').toLowerCase();
+		removedEmoji = removedSpecial.replace(emojiRegex(), '');
+		return removedEmoji.trim().replace(/\s\s+/g, ' ').toLowerCase();
 	}
 };
 

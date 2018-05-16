@@ -17,20 +17,34 @@ doc.getRows(1, { offset: 1 } ,(err, rows) => {
 		entries.push( createEntry(row) )
 	})
 	console.log('Writing to file...')
-	fs.writeFileSync('./src/data/data.json', JSON.stringify(entries))
+	fs.writeFileSync('./src/data/test.json', JSON.stringify(entries))
 })
 
 function createEntry(row) {
 	entry = {
-		"birthdate" : getBirthdate(row),
-		"kanjifamily" : row.kanjifamily,
-		"kanjigiven" : row.kanjigiven,
-		"kanafamily" : row.kanafamily,
-		"kanagiven" : row.kanagiven,
-		"rofamily" : row.rofamily,
-		"rogiven" : row.rogiven
+		"japaneseNames" : getJapaneseName(row),
+		"englishNames" : getEnglishNames(row),
+		"birthdate" : getBirthdate(row)
 	};
 	return entry;
+}
+
+function getJapaneseName(row) {
+	if ( _.isEmpty(row.kanjigiven) ) {
+		return row.kanjifamily
+	}
+	kanjiName = row.kanjifamily + row.kanjigiven;
+	kanjiNameWithSpace = row.kanjifamily + ' ' + row.kanjigiven;
+	return kanjiName + ',' + kanjiNameWithSpace;
+}
+
+function getEnglishNames(row) {
+	if ( _.isEmpty(row.rogiven) ) {
+		return row.rofamily;
+	}
+	lastFirst = row.rofamily + ' ' + row.rogiven;
+	givenFirst = row.rogiven + ' ' + row.rofamily;
+	return lastFirst + ',' + givenFirst;
 }
 
 function getBirthdate(row) {

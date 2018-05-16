@@ -56,6 +56,13 @@ describe('SearchFromData', () => {
 		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
 	});
 
+	it( 'kanji tweet contains proper entry and emoji, family name first no spaces', () => {
+		var mentionTweet = "\uD83C\uDDFE\uD83C\uDDEA 種田梨沙";
+		var returnedValue = searcher.search(mentionTweet);
+		assert.isNotNull(returnedValue);
+		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
+	});
+
 	it( 'kanji tweet only contains proper entry, family name first with spaces in middle', () => {;
 		var mentionTweet = "種田      梨沙";
 		var returnedValue = searcher.search(mentionTweet);
@@ -65,27 +72,6 @@ describe('SearchFromData', () => {
 
 	it( 'kanji tweet only contains proper entry, family name first with multiple spaces before and after', () => {
 		var mentionTweet = "  種田梨沙       ";
-		var returnedValue = searcher.search(mentionTweet);
-		assert.isNotNull(returnedValue);
-		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
-	});
-
-	it( 'kana tweet only contains proper entry, family name first no spaces', () => {
-		var mentionTweet = "たねだりさ";
-		var returnedValue = searcher.search(mentionTweet);
-		assert.isNotNull(returnedValue);
-		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
-	});
-
-	it( 'kana tweet only contains proper entry, family name first with spaces in middle', () => {;
-		var mentionTweet = "たねだ　　　　　りさ";
-		var returnedValue = searcher.search(mentionTweet);
-		assert.isNotNull(returnedValue);
-		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
-	});
-
-	it( 'kana tweet only contains proper entry, family name first with multiple spaces before and after', () => {
-		var mentionTweet = "  たねだりさ      ";
 		var returnedValue = searcher.search(mentionTweet);
 		assert.isNotNull(returnedValue);
 		assert.strictEqual(returnedValue.birthdate,'1988-07-12');
